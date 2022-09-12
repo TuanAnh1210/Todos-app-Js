@@ -41,6 +41,17 @@ const actions = {
   startEdit(state, index) {
     state.editIndex = index;
   },
+  endEdit(state, title) {
+    if (state.editIndex !== null) {
+      if (title) {
+        state.todos[state.editIndex].title = title;
+        storage.set(state.todos);
+      } else {
+        this.destroy(state, state.editIndex);
+      }
+      state.editIndex = null;
+    }
+  },
 };
 
 export default function reducer(state = init, action, args) {
